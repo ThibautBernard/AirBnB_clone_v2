@@ -2,6 +2,8 @@
 """ Module for testing file storage"""
 import unittest
 from models.base_model import BaseModel
+from models.city import City
+from models.state import State
 from models import storage
 import os
 
@@ -23,6 +25,63 @@ class test_fileStorage(unittest.TestCase):
             os.remove('file.json')
         except:
             pass
+
+    def test_delete_method(self):
+        """ New object is correctly added to __objects """
+        new = City()
+        new.name = "San Francisco"
+        new.save()
+        d = storage._FileStorage__objects
+        self.assertEqual(len(d), 1)
+        storage.delete(new)
+        d = storage._FileStorage__objects
+        self.assertEqual(len(d), 0)
+    
+    def test_delete_with_None_method(self):
+        """ New object is correctly added to __objects """
+        new = City()
+        new.name = "San Francisco"
+        new.save()
+        d = storage._FileStorage__objects
+        self.assertEqual(len(d), 1)
+        storage.delete(None)
+        d = storage._FileStorage__objects
+        self.assertEqual(len(d), 1)
+        
+    def test_all_with_None(self):
+        """ New object is correctly added to __objects """
+        c1 = City()
+        c2 = City()
+        c1.name = "San Francisco"
+        c2.name = "Paris"
+        c1.save()
+        c2.save()
+        d = storage._FileStorage__objects
+        t = storage.all(None)
+        self.assertEqual(len(d), len(t))
+    
+    def test_all_with_Class(self):
+        """ New object is correctly added to __objects """
+        c1 = City()
+        c2 = City()
+        s = State()
+        c1.name = "San Francisco"
+        c2.name = "Paris"
+        s.name = "California"
+        c1.save()
+        c2.save()
+        s.save()
+        d = storage._FileStorage__objects
+        t = storage.all(City)
+        self.assertEqual(len(t), 2)
+        self.assertEqual(len(d), 3)
+
+    def test_new(self):
+        """ New object is correctly added to __objects """
+        new = BaseModel()
+        for obj in storage.all().values():
+            temp = obj
+        self.assertTrue(temp is obj)
 
     def test_obj_list_empty(self):
         """ __objects is initially empty """

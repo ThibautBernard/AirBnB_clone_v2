@@ -24,8 +24,8 @@ class DBStorage:
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
                            os.environ['HBNB_MYSQL_USER'], os.environ['HBNB_MYSQL_PWD'],
                            os.environ['HBNB_MYSQL_HOST'], os.environ['HBNB_MYSQL_DB']), pool_pre_ping=True)
-#        if os.environ["HBNB_ENV"] == "test":
-#            Base.metadata.delete_all(self.__engine)
+        if "HBNB_ENV" in os.environ and os.environ["HBNB_ENV"] == "test":
+            Base.metadata.delete_all(self.__engine)
 
     def list_to_dict(self, l):
         d = {}
@@ -44,7 +44,7 @@ class DBStorage:
             return self.list_to_dict(tmp_l)
         else:
             l = self.__session.query(cls).all()
-            return self.list_to_dict(l) 
+            return self.list_to_dict(l)
 
     def new(self, obj):
         if obj:
@@ -56,7 +56,7 @@ class DBStorage:
 
     def delete(self, obj=None):
         if obj:
-            self.__session.query(obj).delete()
+            self.__session.delete(obj)
     
     def reload(self):
         Base.metadata.create_all(self.__engine)

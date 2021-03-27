@@ -11,6 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from shlex import split as sh_split
+import os
 
 
 class HBNBCommand(cmd.Cmd):
@@ -29,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
              'number_rooms': int, 'number_bathrooms': int,
              'max_guest': int, 'price_by_night': int,
              'latitude': float, 'longitude': float,
-             'state_id': int, 'name': str, 'city_id': str,
+             'state_id': str, 'name': str, 'city_id': str,
              'user_id': str, 'description': str, 'text': str,
              'email': str, 'password': str, 'first_name': str,
              'last_name': str
@@ -207,7 +208,8 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            #del(storage.all()[key])
+            storage.delete(storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")

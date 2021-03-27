@@ -142,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
                  types[key_v[0]](key_v[1].replace('"', '').replace("_", ' '))
         new_instance = HBNBCommand.classes[class_name]()
         new_instance.__dict__.update(**d)
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
 
@@ -174,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage._FileStorage__objects[key]) # storage.all() a la place
         except KeyError:
             print("** no instance found **")
 
@@ -219,17 +220,16 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)

@@ -38,7 +38,6 @@ class FileStorage:
             key = obj.__class__.__name__ + '.' + obj.id
             if FileStorage.__objects.get(key, "not found") != "not found":
                 del FileStorage.__objects[key]
-            self.save()
 
     def reload(self):
         """Loads storage dictionary from file"""

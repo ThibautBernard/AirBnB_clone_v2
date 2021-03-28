@@ -32,7 +32,7 @@ class DBStorage:
                             os.environ['HBNB_MYSQL_HOST'],
                             os.environ['HBNB_MYSQL_DB']), pool_pre_ping=True)
         if "HBNB_ENV" in os.environ and os.environ["HBNB_ENV"] == "test":
-            Base.metadata.delete_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def list_to_dict(self, l):
         """

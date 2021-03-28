@@ -8,6 +8,7 @@ from models.state import State
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models.user import User
 from models.base_model import Base
 import MySQLdb
 import os
@@ -19,7 +20,7 @@ class DBStorage:
     """This class manages storage of hbnb models in Database"""
     __engine = None
     __session = None
-    classes = [City, State]
+    classes = [City, State, User, Amenity, Place, Review]
 
     def __init__(self):
         """

@@ -7,14 +7,15 @@ from sqlalchemy import Column, DateTime, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
+
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
-   # if os.environ['HBNB_TYPE_STORAGE'] == "db":
     __tablename__ = 'cities'
-    name = Column(String(128))
-    state_id = Column(String(60), ForeignKey('states.id'))
-#    state = relationship('State', back_populates='cities')
-
-   # else:
-   #     name = ""
-    #    state_id = ""
+    if "HBNB_TYPE_STORAGE" in os.environ and \
+       os.environ['HBNB_TYPE_STORAGE'] == "db":
+        name = Column(String(128))
+        state_id = Column(String(60), ForeignKey('states.id'))
+        #   state = relationship('State', back_populates='cities')
+    else:
+        name = ""
+        state_id = ""

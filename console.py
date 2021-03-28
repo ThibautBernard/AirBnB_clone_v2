@@ -176,7 +176,8 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key]) # storage.all() a la place
+            # storage.all() al a place
+            print(storage._FileStorage__objects[key])
         except KeyError:
             print("** no instance found **")
 
@@ -208,7 +209,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            #del(storage.all()[key])
+            # del(storage.all()[key])
             storage.delete(storage.all()[key])
             storage.save()
         except KeyError:

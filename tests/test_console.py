@@ -71,7 +71,7 @@ class TestConsole(unittest.TestCase):
         f.reload()
         for k, v in f._FileStorage__objects.items():
             self.assertEqual(v.name, "Paris")
-            self.assertEqual(v.state_id, 1)
+            self.assertEqual(v.state_id, "0001")
 
     def test_create_with_boolean_value_arguments(self):
         """ Test that create an object with args """

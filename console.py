@@ -315,7 +315,7 @@ class HBNBCommand(cmd.Cmd):
             args = [att_name, att_val]
 
         # retrieve dictionary of current objects
-        new_dict = storage.all()[key]
+        obj = storage.all()[key]
 
         # iterate through attr names and values
         for i, att_name in enumerate(args):
@@ -333,9 +333,10 @@ class HBNBCommand(cmd.Cmd):
                     att_val = HBNBCommand.types[att_name](att_val)
 
                 # update dictionary with name, value pair
-                new_dict.__dict__.update({att_name: att_val})
-
-        new_dict.save()  # save updates to file
+                # obj.__dict__.update({att_name: att_val}) <- avant
+                setattr(obj, att_name, att_val)
+        storage.save()
+        # new_dict.save() avant  # save updates to file
 
     def help_update(self):
         """ Help information for the update class """

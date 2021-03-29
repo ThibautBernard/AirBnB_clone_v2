@@ -20,12 +20,21 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
-            self.__dict__.update(kwargs)
+            reserved_attribute = ['created_at', 'updated_at']
+            for i in kwargs:
+                if i not in "__class__" and i not in reserved_attribute:
+                    setattr(self, i, kwargs[i])
+                elif i in reserved_attribute:
+                    date_str = kwargs[i]
+                    f = '%Y-%m-%dT%H:%M:%S.%f'
+                    date_obj = datetime.strptime(date_str, f)
+                    setattr(self, i, date_obj)
+            # kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
+                #                                         '%Y-%m-%dT%H:%M:%S.%f')
+            # kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
+            #                                          '%Y-%m-%dT%H:%M:%S.%f')
+            # del kwargs['__class__']
+            # self.__dict__.update(kwargs)
 
     def __str__(self):
         """Returns a string representation of the instance"""

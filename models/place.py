@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
 
@@ -40,7 +40,7 @@ class Place(BaseModel, Base):
     amenities = relationship(
             "Amenity",
             secondary="place_amenity",
-            back_populates="place_aminities",  # places!!!
+            # back_populates="place_amenities",
             viewonly=False
         )
     amenity_ids = []
@@ -65,4 +65,3 @@ class Place(BaseModel, Base):
     def amenities(self, amen):
         if isinstance(amen, Amenity):
             Place.amenity_ids.append(amen.id)
-

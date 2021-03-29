@@ -13,7 +13,7 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
 
     name = Column(String(128))
-    cities = relationship("City", backref="state", passive_deletes=True)
+    cities = relationship("City", backref="state")
 
     @property
     def cities(self):

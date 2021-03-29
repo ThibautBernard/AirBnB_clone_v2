@@ -13,4 +13,4 @@ class City(BaseModel, Base):
     __tablename__ = 'cities'
 
     name = Column(String(128))
-    state_id = Column(String(60), ForeignKey('states.id', ondelete='CASCADE'))
+    state_id = Column(String(60), ForeignKey('states.id'))

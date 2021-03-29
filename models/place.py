@@ -5,6 +5,23 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
 
+place_amenity = Table(
+        'place_amenity',
+        Base.metadata,
+        Column(
+            'place_id',
+            String(60),
+            ForeignKey('places.id'),
+            nullable=False
+        ),
+        Column(
+            'amenity_id', String(60),
+            ForeignKey('amenities.id'),
+            nullable=False
+        )
+)
+
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
@@ -19,7 +36,13 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer(), default=0, nullable=False)
     latitude = Column(Float(), nullable=True)
     longitude = Column(Float(), nullable=True)
-    reviews = relationship('Review', backref="place", cascade="all, delete")
+    reviews = relationship("Review", backref="place", cascade="all, delete")
+    amenities = relationship(
+            "Amenity",
+            secondary="place_amenity",
+            back_populates="place_aminities",  # places!!!
+            viewonly=False
+        )
     amenity_ids = []
 
     @property
@@ -29,3 +52,17 @@ class Place(BaseModel, Base):
             if rev.place_id == self.id:
                 revs.append(rev)
         return revs
+
+    @property
+    def amenities(self):
+        amens = []
+        for k, amen in storage.all(Amenity).items():
+            if amen.place_id == self.id:
+                amens.append(amen)
+        return amens
+
+    @amenities.setter
+    def amenities(self, amen):
+        if isinstance(amen, Amenity):
+            Place.amenity_ids.append(amen.id)
+

@@ -16,7 +16,6 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
-            from models import storage
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
@@ -31,9 +30,7 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         name_class_obj = self.__class__.__name__
-        return "[{}] ({}) {}".format(name_class_obj, self.id, self.__dict__)
-        #cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        #return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(name_class_obj, self.id, self.to_dict())
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""

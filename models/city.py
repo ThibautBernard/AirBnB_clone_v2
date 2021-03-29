@@ -11,11 +11,6 @@ import os
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
     __tablename__ = 'cities'
-    if "HBNB_TYPE_STORAGE" in os.environ and \
-       os.environ['HBNB_TYPE_STORAGE'] == "db":
-        name = Column(String(128))
-        state_id = Column(String(60), ForeignKey('states.id', ondelete='CASCADE'))
-        #   state = relationship('State', back_populates='cities')
-    else:
-        name = ""
-        state_id = ""
+
+    name = Column(String(128))
+    state_id = Column(String(60), ForeignKey('states.id', ondelete='CASCADE'))

@@ -11,17 +11,14 @@ from models.city import City
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
-    if "HBNB_TYPE_STORAGE" in os.environ and \
-       os.environ['HBNB_TYPE_STORAGE'] == "db":
-        name = Column(String(128))  # unique=True
-        cities = relationship("City", backref="state", passive_deletes=True)
-    else:
-        name = ""
 
-        @property
-        def cities(self):
-            l = []
-            for k, v in storage.all(City).items():
-                if v.state_id == self.id:
-                    l.append(v)
-            return l
+    name = Column(String(128))
+    cities = relationship("City", backref="state", passive_deletes=True)
+
+    @property
+    def cities(self):
+        l = []
+        for k, v in storage.all(City).items():
+            if v.state_id == self.id:
+                l.append(v)
+        return l

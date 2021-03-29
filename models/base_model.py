@@ -20,12 +20,12 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            if "id" not in kwargs:
-                self.id = str(uuid.uuid4())
-            if "created_at" not in kwargs:
-                self.created_at = datetime.now()
-            if "updated_at" not in kwargs:
-                self.updated_at = datetime.now()
+            # if "id" not in kwargs:
+            self.id = str(uuid.uuid4())
+            # if "created_at" not in kwargs:
+            self.created_at = datetime.now()
+            # if "updated_at" not in kwargs:
+            self.updated_at = datetime.now()
             reserved_attribute = ['created_at', 'updated_at']
             for i in kwargs:
                 if i not in "__class__" and i not in reserved_attribute:

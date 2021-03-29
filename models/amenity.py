@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 
 
 class Amenity(BaseModel, Base):
+    """ Class amenity """
     __tablename__ = "amenities"
 
     name = Column(String(128), nullable=False)

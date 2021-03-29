@@ -41,7 +41,7 @@ class Place(BaseModel, Base):
     amenities = relationship(
             "Amenity",
             secondary="place_amenity",
-            back_populates="place_amenities",
+            # back_populates="place_amenities",
             viewonly=False
         )
     amenity_ids = []
@@ -56,6 +56,7 @@ class Place(BaseModel, Base):
 
     @property
     def amenities(self):
+        """ getter for amenities """
         amens = []
         for k, amen in models.storage.all(Amenity).items():
             if amen.id in self.amenity_ids:
@@ -64,5 +65,6 @@ class Place(BaseModel, Base):
 
     @amenities.setter
     def amenities(self, amen):
+        """ Setter for amenities """
         if isinstance(amen, Amenity):
             Place.amenity_ids.append(amen.id)

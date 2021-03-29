@@ -70,7 +70,7 @@ class DBStorage:
         """
         if obj:
             self.__session.add(obj)
-            self.save()
+            # self.save()
 
     def save(self):
         """

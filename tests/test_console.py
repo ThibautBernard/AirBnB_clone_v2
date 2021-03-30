@@ -21,9 +21,9 @@ from os import path
 
 class TestConsole(unittest.TestCase):
 
-    #    @unittest.skipIf(
-    #        "HBNB_TYPE_STORAGE" in os.environ and
-    #        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def setUp(self):
         FileStorage._FileStorage__objects = {}
     # if os.path.exists("file.json"):
@@ -31,10 +31,54 @@ class TestConsole(unittest.TestCase):
     # def tearDown(self):
     #    if os.path.exists("file.json"):
     #        os.remove("file.json")
+
+    def test_create_errors(self):
+        """Test create command errors."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("create asdfsfsd")
+            self.assertEqual(
+                "** class doesn't exist **\n", f.getvalue())
+
+    def test_show(self):
+        """Test show command."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("show")
+            self.assertEqual(
+                "** class name missing **\n", f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("show asdfsdrfs")
+            self.assertEqual(
+                "** class doesn't exist **\n", f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel")
+            self.assertEqual(
+                "** instance id missing **\n", f.getvalue())
+
+    def test_destroy(self):
+        """Test destroy command input."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy")
+            self.assertEqual(
+                "** class name missing **\n", f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy Galaxy")
+            self.assertEqual(
+                "** class doesn't exist **\n", f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy User")
+            self.assertEqual(
+                "** instance id missing **\n", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel 12345")
+            self.assertEqual(
+                "** no instance found **\n", f.getvalue())
+
     """
         Create cmd
     """
-
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_arguments(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))
@@ -42,6 +86,9 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd('create City name="Sa" state_id="0001"')
         self.assertTrue(os.path.exists("file.json"))
 
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_one_false_arguments(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))
@@ -55,6 +102,9 @@ class TestConsole(unittest.TestCase):
         tmp = cm.exception
         self.assertEqual("'City' object has no attribute 'foo'", str(tmp))
 
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_one_good_arguments_with_space_in_name(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))
@@ -65,6 +115,9 @@ class TestConsole(unittest.TestCase):
         for k, v in f._FileStorage__objects.items():
             self.assertEqual(v.name, "Sa")
 
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_good_arguments(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))
@@ -76,6 +129,9 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(v.name, "Paris")
             self.assertEqual(v.state_id, "0001")
 
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_boolean_value_arguments(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))
@@ -86,6 +142,9 @@ class TestConsole(unittest.TestCase):
         for k, v in f._FileStorage__objects.items():
             self.assertEqual(v.longitude, -122.431297)
 
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_name_And_underscore_value_arguments(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))
@@ -96,6 +155,9 @@ class TestConsole(unittest.TestCase):
         for k, v in f._FileStorage__objects.items():
             self.assertEqual(v.name, "My little house")
 
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_create_with_integer_value_arguments(self):
         """ Test that create an object with args """
         # self.assertFalse(os.path.exists("file.json"))

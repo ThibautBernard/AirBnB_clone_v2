@@ -140,4 +140,3 @@ class TestAmenity(unittest.TestCase):
         obj = Amenity()
         s = str(obj)
         self.assertTrue("Amenity" in s)
-

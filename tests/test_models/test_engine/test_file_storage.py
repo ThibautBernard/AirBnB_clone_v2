@@ -11,7 +11,9 @@ import os
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
-    @unittest.skipIf("HBNB_TYPE_STORAGE" in os.environ and os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def setUp(self):
         """ Set up test environment """
         del_list = []
@@ -26,7 +28,10 @@ class test_fileStorage(unittest.TestCase):
             os.remove('file.json')
         except:
             pass
-    @unittest.skipIf("HBNB_TYPE_STORAGE" in os.environ and os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
+
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_delete_method(self):
         """ New object is correctly added to __objects """
         new = City()
@@ -38,7 +43,9 @@ class test_fileStorage(unittest.TestCase):
         d = storage._FileStorage__objects
         self.assertEqual(len(d), 0)
 
-    @unittest.skipIf("HBNB_TYPE_STORAGE" in os.environ and os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def test_delete_with_None_method(self):
         """ New object is correctly added to __objects """
         new = City()

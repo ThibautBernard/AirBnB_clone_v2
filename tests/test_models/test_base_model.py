@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 
 class test_basemodel(unittest.TestCase):
-  
+
     """Basic instanciation object__init__"""
     def test_is_id_created(self):
         """ Test id created """

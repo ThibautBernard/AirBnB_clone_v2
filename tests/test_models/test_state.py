@@ -13,6 +13,7 @@ from MySQLdb import _mysql
 from unittest.mock import patch
 from console import HBNBCommand
 
+
 class TestState(unittest.TestCase):
 
     def setUp(self):
@@ -21,18 +22,23 @@ class TestState(unittest.TestCase):
     def tearDown(self):
         if os.path.exists("file.json"):
             os.remove("file.json")
-    
-    @unittest.skipIf("HBNB_TYPE_STORAGE" not in os.environ or os.environ['HBNB_TYPE_STORAGE'] == "fs", "fs engine")
+
+    @unittest.skipIf(
+          "HBNB_TYPE_STORAGE" not in os.environ or
+          os.environ['HBNB_TYPE_STORAGE'] == "fs", "fs engine")
     def test_create_state_in_database(self):
         """ Test """
-        db=_mysql.connect(host="localhost",user="hbnb_test",
-                  passwd="hbnb_test_pwd",db="hbnb_test_db")
+        a = "localhost"
+        b = "hbnb_test"
+        c = "hbnb_test_pwd"
+        d = "hbnb_test_db"
+        db = _mysql.connect(host=a, user=b, passwd=c, db=d)
         db.query("""SELECT COUNT(id) FROM states""")
-        r=db.store_result().fetch_row(how=1, maxrows=0)
+        r = db.store_result().fetch_row(how=1, maxrows=0)
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('create State name="t"')
         db.query("""SELECT COUNT(id) FROM states""")
-        t=db.store_result().fetch_row(how=1, maxrows=0)
+        t = db.store_result().fetch_row(how=1, maxrows=0)
         self.assertNotEqual(t[0]['COUNT(id)'], r[0]['COUNT(id)'])
 
     def test_type_name(self):

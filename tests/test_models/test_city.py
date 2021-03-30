@@ -7,6 +7,11 @@ from models.user import User
 from models.city import City
 import os.path
 from os import path
+from MySQLdb import _mysql
+from unittest.mock import patch
+from console import HBNBCommand
+from io import StringIO
+import MySQLdb
 
 
 class TestCity(unittest.TestCase):
@@ -25,6 +30,30 @@ class TestCity(unittest.TestCase):
         n = getattr(obj, "name")
         self.assertIsInstance(n, str)
 
+    @unittest.skipIf("HBNB_TYPE_STORAGE" not in os.environ or os.environ['HBNB_TYPE_STORAGE'] == "fs", "fs engine")
+    def test_create_c_in_database(self):
+        """ Test """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create State name="calif"')
+        db=MySQLdb.connect(host="localhost",user="hbnb_test",
+                  passwd="hbnb_test_pwd",db="hbnb_test_db", port=3306)
+        c=db.cursor()
+        c.execute("""SELECT * FROM states""")
+        id_state = c.fetchall()[0][0]
+        db=MySQLdb.connect(host="localhost",user="hbnb_test",
+                  passwd="hbnb_test_pwd",db="hbnb_test_db", port=3306)
+        c=db.cursor()
+        c.execute("""SELECT COUNT(id) FROM cities""")
+        nb_cities_before = c.fetchall()[0][0]
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create City state_id="{}" name="San_Francisco"'.format(id_state))
+        db=MySQLdb.connect(host="localhost",user="hbnb_test",
+                  passwd="hbnb_test_pwd",db="hbnb_test_db", port=3306)
+        c=db.cursor()
+        c.execute("""SELECT COUNT(id) FROM cities""")
+        nb_cities_after = c.fetchall()[0][0]
+        self.assertNotEqual(nb_cities_before, nb_cities_after)
+    
     def test_type_state_id(self):
         """ Test that type state_id is str"""
         obj = City()

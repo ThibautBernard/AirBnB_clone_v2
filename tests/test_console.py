@@ -20,4 +20,88 @@ from os import path
 
 
 class TestConsole(unittest.TestCase):
-    pass
+
+    @unittest.skipIf(
+        "HBNB_TYPE_STORAGE" in os.environ and
+        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
+    def setUp(self):
+        FileStorage._FileStorage__objects = {}
+    # if os.path.exists("file.json"):
+    # os.remove("file.json")
+    # def tearDown(self):
+    #    if os.path.exists("file.json"):
+    #        os.remove("file.json")
+    """
+        Create cmd
+    """
+
+    def test_create_with_arguments(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create City name="Sa" state_id="0001"')
+        self.assertTrue(os.path.exists("file.json"))
+
+    def test_create_with_one_false_arguments(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create City name="Sa" statedz="0001"')
+        f = FileStorage()
+        f.reload()
+        with self.assertRaises(AttributeError) as cm:
+            for k, v in f._FileStorage__objects.items():
+                v.foo
+        tmp = cm.exception
+        self.assertEqual("'City' object has no attribute 'foo'", str(tmp))
+
+    def test_create_with_one_good_arguments_with_space_in_name(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create City name="Sa" state_id="0001"')
+        f = FileStorage()
+        f.reload()
+        for k, v in f._FileStorage__objects.items():
+            self.assertEqual(v.name, "Sa")
+
+    def test_create_with_good_arguments(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create City name="Paris" state_id="0001"')
+        f = FileStorage()
+        f.reload()
+        for k, v in f._FileStorage__objects.items():
+            self.assertEqual(v.name, "Paris")
+            self.assertEqual(v.state_id, "0001")
+
+    def test_create_with_boolean_value_arguments(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create Place name="M" longitude=-122.431297')
+        f = FileStorage()
+        f.reload()
+        for k, v in f._FileStorage__objects.items():
+            self.assertEqual(v.longitude, -122.431297)
+
+    def test_create_with_name_And_underscore_value_arguments(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create Place name="My_little_house"')
+        f = FileStorage()
+        f.reload()
+        for k, v in f._FileStorage__objects.items():
+            self.assertEqual(v.name, "My little house")
+
+    def test_create_with_integer_value_arguments(self):
+        """ Test that create an object with args """
+        # self.assertFalse(os.path.exists("file.json"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('create Place name="M" price_by_night=300')
+        f = FileStorage()
+        f.reload()
+        for k, v in f._FileStorage__objects.items():
+            self.assertEqual(v.price_by_night, 300)

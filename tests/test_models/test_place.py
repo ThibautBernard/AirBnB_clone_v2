@@ -22,54 +22,6 @@ class TestPlace(unittest.TestCase):
         if os.path.exists("file.json"):
             os.remove("file.json")
 
-    @unittest.skipIf(
-          "HBNB_TYPE_STORAGE" not in os.environ or
-          os.environ['HBNB_TYPE_STORAGE'] == "fs", "fs engine")
-    def test_create_Place_in_database(self):
-        """ Test """
-        a = "localhost"
-        b = "hbnb_test"
-        c = "hbnb_test_pwd"
-        d = "hbnb_test_db"
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd('create State name="calif"')
-        db = MySQLdb.connect(host=a, user=b, passwd=c, db=d, port=3306)
-        x = db.cursor()
-        x.execute("""SELECT * FROM states""")
-        i = x.fetchall()[0][0]
-        db = MySQLdb.connect(host=a, user=b, passwd=c, db=d, port=3306)
-        x = db.cursor()
-        x.execute("""SELECT COUNT(id) FROM cities""")
-        nb_cities_before = x.fetchall()[0][0]
-        u = 'create User email="gui@hbtn.io" password="guipwd" \
-            first_name="Guillaume" last_name="Snow"'
-        with patch('sys.stdout', new=StringIO()) as f:
-            s = 'create City state_id="{}" name="S"'
-            HBNBCommand().onecmd(s.format(i))
-            HBNBCommand().onecmd(u)
-        db = MySQLdb.connect(host=a, user=b, passwd=c, db=d, port=3306)
-        x = db.cursor()
-        x.execute("""SELECT id FROM cities""")
-        id_city = x.fetchall()[0][0]
-        db = MySQLdb.connect(host=a, user=b, passwd=c, db=d, port=3306)
-        x = db.cursor()
-        x.execute("""SELECT id FROM users""")
-        id_user = x.fetchall()[0][0]
-        db = MySQLdb.connect(host=a, user=b, passwd=c, db=d, port=3306)
-        x = db.cursor()
-        x.execute("""SELECT COUNT(id) FROM places""")
-        places_be = x.fetchall()[0][0]
-        pl = 'create Place city_id="{}" user_id="{}" name="Lovely_place" \
-             number_rooms=3 number_bathrooms=1 max_guest=6 \
-             price_by_night=120 latitude=37.773972 longitude=-122.431297'
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(pl.format(id_city, id_user))
-        db = MySQLdb.connect(host=a, user=b, passwd=c, db=d, port=3306)
-        x = db.cursor()
-        x.execute("""SELECT COUNT(id) FROM places""")
-        places_after = x.fetchall()[0][0]
-        self.assertNotEqual(places_be, places_after)
-
     def test_type_city_id(self):
         """ Test type"""
         obj = Place()

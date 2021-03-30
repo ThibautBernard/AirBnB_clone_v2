@@ -36,7 +36,7 @@ class test_fileStorage(unittest.TestCase):
         storage.delete(new)
         d = storage._FileStorage__objects
         self.assertEqual(len(d), 0)
-    
+
     def test_delete_with_None_method(self):
         """ New object is correctly added to __objects """
         new = City()
@@ -47,7 +47,7 @@ class test_fileStorage(unittest.TestCase):
         storage.delete(None)
         d = storage._FileStorage__objects
         self.assertEqual(len(d), 1)
-        
+
     def test_all_with_None(self):
         """ New object is correctly added to __objects """
         c1 = City()
@@ -59,7 +59,7 @@ class test_fileStorage(unittest.TestCase):
         d = storage._FileStorage__objects
         t = storage.all(None)
         self.assertEqual(len(d), len(t))
-    
+
     def test_all_with_Class(self):
         """ New object is correctly added to __objects """
         c1 = City()

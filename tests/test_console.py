@@ -21,9 +21,9 @@ from os import path
 
 class TestConsole(unittest.TestCase):
 
-    @unittest.skipIf(
-        "HBNB_TYPE_STORAGE" in os.environ and
-        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
+    #    @unittest.skipIf(
+    #        "HBNB_TYPE_STORAGE" in os.environ and
+    #        os.environ['HBNB_TYPE_STORAGE'] == "db", "db engine")
     def setUp(self):
         FileStorage._FileStorage__objects = {}
     # if os.path.exists("file.json"):

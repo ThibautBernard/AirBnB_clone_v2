@@ -6,6 +6,10 @@ from models.engine.file_storage import FileStorage
 from models.user import User
 import os.path
 from os import path
+from MySQLdb import _mysql
+from unittest.mock import patch
+from console import HBNBCommand
+from io import StringIO
 
 
 class TestUser(unittest.TestCase):
@@ -16,6 +20,26 @@ class TestUser(unittest.TestCase):
     def tearDown(self):
         if os.path.exists("file.json"):
             os.remove("file.json")
+
+    @unittest.skipIf(
+          "HBNB_TYPE_STORAGE" not in os.environ or
+          os.environ['HBNB_TYPE_STORAGE'] == "fs", "fs engine")
+    def test_create_user_in_database(self):
+        """ Test """
+        a = "localhost"
+        b = "hbnb_test"
+        c = "hbnb_test_pwd"
+        d = "hbnb_test_db"
+        db = _mysql.connect(host=a, user=b, passwd=c, db=d)
+        db.query("""SELECT COUNT(id) FROM users""")
+        r = db.store_result().fetch_row(how=1, maxrows=0)
+        s = 'create User email="gui@hbtn.io" \
+         password="guipwd" first_name="Guillaume" last_name="Snow"'
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(s)
+        db.query("""SELECT COUNT(id) FROM users""")
+        t = db.store_result().fetch_row(how=1, maxrows=0)
+        self.assertNotEqual(t[0]['COUNT(id)'], r[0]['COUNT(id)'])
 
     """Basic instanciation object__init__"""
     def test_user_id_created(self):

@@ -3,7 +3,6 @@
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
-from io import StringIO
 from models.engine.file_storage import FileStorage
 from models.user import User
 from models.state import State
@@ -12,6 +11,7 @@ from os import path
 from MySQLdb import _mysql
 from unittest.mock import patch
 from console import HBNBCommand
+from io import StringIO
 
 
 class TestState(unittest.TestCase):

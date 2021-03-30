@@ -5,6 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.amenity import Amenity
+from os import getenv
 
 place_amenity = Table(
         'place_amenity',
@@ -47,25 +48,27 @@ class Place(BaseModel, Base):
         )
     amenity_ids = []
 
-    @property
-    def reviews(self):
-        revs = []
-        for k, rev in storage.all(Review).items():
-            if rev.place_id == self.id:
-                revs.append(rev)
-        return revs
+    if getenv("HBNB_TYPE_STORAGE") != 'db':
 
-    @property
-    def amenities(self):
-        """ getter for amenities """
-        amens = []
-        for k, amen in models.storage.all(Amenity).items():
-            if amen.id in self.amenity_ids:
-                amens.append(amen)
-        return amens
+        @property
+        def reviews(self):
+            revs = []
+            for k, rev in storage.all(Review).items():
+                if rev.place_id == self.id:
+                    revs.append(rev)
+            return revs
 
-    @amenities.setter
-    def amenities(self, amen):
-        """ Setter for amenities """
-        if isinstance(amen, Amenity):
-            Place.amenity_ids.append(amen.id)
+        @property
+        def amenities(self):
+            """ getter for amenities """
+            amens = []
+            for k, amen in models.storage.all(Amenity).items():
+                if amen.id in self.amenity_ids:
+                    amens.append(amen)
+            return amens
+
+        @amenities.setter
+        def amenities(self, amen):
+            """ Setter for amenities """
+            if isinstance(amen, Amenity):
+                Place.amenity_ids.append(amen.id)

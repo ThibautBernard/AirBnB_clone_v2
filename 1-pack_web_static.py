@@ -19,7 +19,7 @@ def do_pack():
         l = local("mkdir -p versions")
         o = local("tar -cvzf {} web_static".format(n))
         x = local("mv {} versions".format(n))
-        p = local("pwd {}".format(n))
-        return p
+        # p = local("pwd {}".format(n))
+        return 'versions/{}'.format(n)
     except:
         return None

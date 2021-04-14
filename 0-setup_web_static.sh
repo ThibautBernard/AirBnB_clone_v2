@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# some config
+# some configdd
+
 sudo apt-get -y update
 sudo apt-get install nginx
 mkdir -p /data/

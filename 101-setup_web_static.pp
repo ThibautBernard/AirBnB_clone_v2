@@ -77,6 +77,11 @@ exec { 'chown -R ubuntu:ubuntu /data/':
   path => '/usr/bin/:/usr/local/bin/:/bin/'
 } ->
 
+file { '/etc/nginx/sites-available/default':
+  ensure  => 'present',
+  content => $nginx_conf
+} ->
+
 exec { 'nginx restart':
   path => '/etc/init.d/'
 }

@@ -1,20 +1,19 @@
 # sets up web servers for the deployment of web_static folder
 
-exec { 'update':
-  command => '/usr/bin/apt-get update',
-} ->
-
-package { 'nginx':
-    ensure  => 'installed',
-    name    => 'nginx',
-    require => Exec['update'],
-} ->
+#exec { 'update':
+#  command => '/usr/bin/apt-get update',
+#} ->
 
 #service { 'nginx':
 #  ensure     => running,
 #  hasrestart => true,
 #  require    => Package['nginx'],
 #} ->
+
+package { 'nginx':
+    ensure => 'installed',
+    name   => 'nginx',
+} ->
 
 file { '/data':
   ensure  => 'directory'

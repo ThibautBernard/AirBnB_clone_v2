@@ -5,10 +5,10 @@ apt-get -y update
 apt-get -y install nginx
 mkdir -p /data/
 mkdir -p /data/web_static/
-mkdir -p /data/web_static/releases/
-mkdir -p /data/web_static/shared/
-mkdir -p /data/web_static/releases/test/
-echo "test" > /data/web_static/releases/test/index.html
+mkdir -p /data/web_static/releases
+mkdir -p /data/web_static/releases/test
+mkdir -p /data/web_static/shared
+echo "test wowww" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -hR ubuntu:ubuntu /data
 n="server_name _;\n     location \/hbnb_static\/ {\n\talias \/data\/web_static\/current\/; \n\t}"

@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """
-    pack webstatic
+    pack webstatic module fabric
 """
 import time
-from fabric.context_managers import cd
+# from fabric.context_managers import cd
 from fabric.api import local
 from fabric.api import get
 from fabric.api import put
@@ -13,6 +13,7 @@ from fabric.api import sudo
 
 
 def do_pack():
+    """ pack my static"""
     try:
         n = "web_static_{}.tgz".\
           format(time.strftime("%Y%m%d%H%M%S", time.gmtime()))

@@ -11,38 +11,33 @@ package { 'nginx':
 }
 
 file { '/data/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 }
 
 file { '/data/web_static/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => File['/data/'],
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 }
 
 file { '/data/web_static/releases/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 }
 
 file { '/data/web_static/shared/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 }
 
 file { '/data/web_static/releases/test/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 }
 
 file { '/data/web_static/releases/test/index.html':
@@ -50,13 +45,11 @@ file { '/data/web_static/releases/test/index.html':
     group   => 'ubuntu',
     owner   => 'ubuntu',
     content => 'test wowww',
-    require => File['/data/web_static/releases/test/'],
 }
 
 exec { 'symbolic link':
     command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
     provider => 'shell',
-    require  => File['/data/web_static/releases/test/'],
 }
 
 file_line { 'redirect_me':

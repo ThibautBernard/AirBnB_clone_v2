@@ -59,7 +59,10 @@ file { '/data/web_static/releases/test/':
 
 file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
-  content => "Holberton School Puppet\n"
+  path    => '/data/web_static/releases/test/index.html',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  content => "Holberton School Puppet\n",
 } ->
 
 file { '/data/web_static/current':

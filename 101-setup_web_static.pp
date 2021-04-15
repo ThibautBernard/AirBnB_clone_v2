@@ -62,18 +62,13 @@ file { '/data/web_static/releases/test/index.html':
   content => "Holberton School Puppet\n"
 } ->
 
-file { '/data/web_static/current':
-  ensure => 'link',
-  target => '/data/web_static/releases/test'
+exec { 'symbolic link':
+    command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
+    provider => 'shell',
 } ->
 
 exec { 'chown -R ubuntu:ubuntu /data/':
   path => '/usr/bin/:/usr/local/bin/:/bin/'
-} ->
-
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'present',
-  content => $nginx_conf
 } ->
 
 exec { 'nginx restart':

@@ -1,5 +1,12 @@
 # sets up web servers for the deployment of web_static folder
 
+$data_dirs =  [
+  '/data',
+  '/data/web_static',
+  '/data/web_static/releases',
+  '/data/web_static/releases/test',
+  '/data/web_static/shared',
+]
 exec { 'update':
   command => '/usr/bin/apt-get update',
 }
@@ -10,41 +17,46 @@ package { 'nginx':
     require => Exec['update'],
 }
 
-file { '/data/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
-}
+#file { '/data/':
+#    ensure  => 'directory',
+#    group   => 'ubuntu',
+#    owner   => 'ubuntu',
+#    require => Package['nginx'],
+#}
 
-file { '/data/web_static/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
-}
+#file { '/data/web_static/':
+#    ensure  => 'directory',
+#    group   => 'ubuntu',
+#    owner   => 'ubuntu',
+#    require => File['/data/'],
+#    require => Package['nginx'],
+#}
 
-file { '/data/web_static/releases/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
-}
+#file { '/data/web_static/releases/':
+#    ensure  => 'directory',
+#    group   => 'ubuntu',
+#    owner   => 'ubuntu',
+#    require => Package['nginx'],
+#}
 
-file { '/data/web_static/shared/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
-}
+#file { '/data/web_static/shared/':
+#    ensure  => 'directory',
+#    group   => 'ubuntu',
+#    owner   => 'ubuntu',
+#    require => Package['nginx'],
+#}
 
-file { '/data/web_static/releases/test/':
-    ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    require => Package['nginx'],
+#file { '/data/web_static/releases/test/':
+#    ensure  => 'directory',
+#    group   => 'ubuntu',
+#    owner   => 'ubuntu',
+#    require => Package['nginx'],
+#}
+file { $data_dirs:
+  ensure => 'directory',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
-
 file { '/data/web_static/releases/test/index.html':
     ensure  => 'file',
     group   => 'ubuntu',
@@ -68,7 +80,7 @@ file_line { 'redirect_me':
 }
 
 service { 'nginx':
-  ensure  => running,
+  ensure     => running,
   hasrestart => true,
-  require => Package['nginx'],
+  require    => Package['nginx'],
 }

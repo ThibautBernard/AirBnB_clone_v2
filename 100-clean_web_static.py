@@ -20,6 +20,8 @@ def do_clean(number=0):
         delete all files except two most recent one, else
     """
     if number == 0 or number == 1:
-        run('ls -t | tail -n +2 | xargs rm')
+        run('ls -t /versions | tail -n +2 | xargs rm')
+        run('ls -t /data/web_static/releases | tail -n +2 | xargs rm')
     else:
-        run('ls -t | tail -n +3 | xargs rm')
+        run('ls -t /versions | tail -n +3 | xargs rm')
+        run('ls -t /data/web_static/releases | tail -n +2 | xargs rm')

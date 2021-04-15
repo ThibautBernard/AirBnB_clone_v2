@@ -11,46 +11,46 @@ package { 'nginx':
 }
 
 file { '/data/':
-    ensure => 'directory',
+    ensure  => 'directory',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/':
-    ensure => 'directory',
+    ensure  => 'directory',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/':
-    ensure => 'directory',
+    ensure  => 'directory',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/shared/':
-    ensure => 'directory',
+    ensure  => 'directory',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/test/':
-    ensure => 'directory',
+    ensure  => 'directory',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/test/index.html':
-    ensure => 'file',
+    ensure  => 'file',
     content => 'test wowww',
     require => File['/data/web_static/releases/test/'],
 }
 
 exec { 'symbolic link'
-    command => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
+    command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
     provider => 'shell',
-    require => File['/data/web_static/releases/test/'],
+    require  => File['/data/web_static/releases/test/'],
 }
 
 exec { 'give owner'
-    command => 'chown -hR ubuntu:ubuntu /data',
+    command  => 'chown -hR ubuntu:ubuntu /data',
     provider => 'shell',
-    require => File['/data/'],
+    require  => File['/data/'],
 }
 
 file_line { 'redirect_me':

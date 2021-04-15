@@ -1,12 +1,12 @@
-# sets up web servers for the deployment of web_static folder
+# Confire servers to deploy
 
 exec { 'update':
   command => '/usr/bin/apt-get update',
 } ->
 
 package { 'nginx':
-    ensure => 'installed',
-    name   => 'nginx',
+  ensure   => 'present',
+  provider => 'apt'
 } ->
 
 file { '/data/':
@@ -40,15 +40,19 @@ file { '/data/web_static/releases/test/':
 } ->
 
 file { '/data/web_static/releases/test/index.html':
-    ensure  => 'file',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
-    content => 'test wowww',
+  ensure  => 'present',
+  path    => '/data/web_static/releases/test/index.html',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  content => "Holberton School Puppet\n",
 } ->
 
-exec { 'symbolic link':
-    command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
-    provider => 'shell',
+file { '/data/web_static/current':
+  ensure  => 'link',
+  replace => 'yes',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  target  => '/data/web_static/releases/test',
 } ->
 
 exec { 'chown -R ubuntu:ubuntu /data/':

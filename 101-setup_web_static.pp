@@ -70,11 +70,8 @@ file_line { 'redirect_me':
   after   => 'root /var/www/html;',
   line    => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
   require => Package['nginx'],
-  notify  => Service['nginx'],
 }
 
-exec { 'ufw':
-  command => "ufw allow 'Nginx HTTP'",
-  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-  require => Package['nginx'],
+exec { 'nginx restart':
+  path => '/etc/init.d/'
 }

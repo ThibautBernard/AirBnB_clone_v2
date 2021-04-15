@@ -12,43 +12,43 @@ package { 'nginx':
 
 file { '/data/':
     ensure  => 'directory',
-    group   => 'root',
-    owner   => 'root',
+    group   => 'ubuntu',
+    owner   => 'ubuntu',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/':
     ensure  => 'directory',
-    group   => 'root',
-    owner   => 'root',
+    group   => 'ubuntu',
+    owner   => 'ubuntu',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/':
     ensure  => 'directory',
-    group   => 'root',
-    owner   => 'root',
+    group   => 'ubuntu',
+    owner   => 'ubuntu',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/shared/':
     ensure  => 'directory',
-    group   => 'root',
-    owner   => 'root',
+    group   => 'ubuntu',
+    owner   => 'ubuntu',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/test/':
     ensure  => 'directory',
-    group   => 'root',
-    owner   => 'root',
+    group   => 'ubuntu',
+    owner   => 'ubuntu',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/test/index.html':
     ensure  => 'file',
-    group   => 'root',
-    owner   => 'root',
+    group   => 'ubuntu',
+    owner   => 'ubuntu',
     content => 'test wowww',
     require => File['/data/web_static/releases/test/'],
 }
@@ -63,7 +63,7 @@ file_line { 'redirect_me':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'root /var/www/html;',
-  line    => "\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\t}\n",
+  line    => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
   require => Package['nginx'],
 }
 

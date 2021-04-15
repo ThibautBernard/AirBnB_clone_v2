@@ -2,7 +2,7 @@
 """
     deploy static
 """
-import time
+# import time
 # from fabric.context_managers import cd
 from fabric.api import local
 from fabric.api import get
@@ -15,6 +15,7 @@ env.hosts = ['34.75.49.246', '104.196.144.160']
 
 
 def do_deploy(archive_path):
+    """ deploy my archive tgz into my servers """
     try:
         put(archive_path, '/tmp/')
         c1 = 'mkdir -p /data/web_static/releases/{}/'

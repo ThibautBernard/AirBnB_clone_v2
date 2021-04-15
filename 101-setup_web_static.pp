@@ -41,13 +41,13 @@ file { '/data/web_static/releases/test/index.html':
     require => File['/data/web_static/releases/test/'],
 }
 
-exec { 'symbolic link'
+exec { 'symbolic link':
     command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
     provider => 'shell',
     require  => File['/data/web_static/releases/test/'],
 }
 
-exec { 'give owner'
+exec { 'give owner':
     command  => 'chown -hR ubuntu:ubuntu /data',
     provider => 'shell',
     require  => File['/data/'],

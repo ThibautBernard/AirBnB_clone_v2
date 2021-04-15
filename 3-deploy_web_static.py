@@ -18,6 +18,7 @@ path = do_pack()
 
 
 def deploy():
+    """ pack and deploy """
     if path:
         return do_deploy(path)
     else:

@@ -10,14 +10,16 @@ from fabric.api import put
 from fabric.api import reboot
 from fabric.api import run
 from fabric.api import sudo
+import os.path
 
 
 def do_pack():
     """ pack my static"""
     try:
+        if not os.path.exists('versions'):
+            l = local("mkdir -p versions")
         n = "web_static_{}.tgz".\
-          format(time.strftime("%Y%m%d%H%M%S", time.gmtime()))
-        l = local("mkdir -p versions")
+            format(time.strftime("%Y%m%d%H%M%S", time.gmtime()))
         o = local("tar -cvzf {} versions/web_static".format(n))
         # x = local("mv {} versions".format(n))
         # p = local("pwd {}".format(n))

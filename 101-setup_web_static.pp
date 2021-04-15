@@ -10,11 +10,11 @@ package { 'nginx':
     require => Exec['update'],
 } ->
 
-service { 'nginx':
-  ensure     => running,
-  hasrestart => true,
-  require    => Package['nginx'],
-} ->
+#service { 'nginx':
+#  ensure     => running,
+#  hasrestart => true,
+#  require    => Package['nginx'],
+#} ->
 
 file { '/data':
   ensure  => 'directory'

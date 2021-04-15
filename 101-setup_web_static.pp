@@ -51,6 +51,10 @@ exec { 'symbolic link':
     provider => 'shell',
 } ->
 
+exec { 'chown -R ubuntu:ubuntu /data/':
+  path => '/usr/bin/:/usr/local/bin/:/bin/'
+} ->
+
 exec { 'sed':
   command => "sed -i \
   '/^\tlisten 80 default_server;$/i location /hbnb_static/ { alias /data/web_static/current/; }' /etc/nginx/sites-available/default",

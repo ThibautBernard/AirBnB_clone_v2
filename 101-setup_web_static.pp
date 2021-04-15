@@ -63,8 +63,11 @@ file { '/data/web_static/releases/test/index.html':
 } ->
 
 file { '/data/web_static/current':
-  ensure => 'link',
-  target => '/data/web_static/releases/test'
+  ensure  => 'link',
+  replace => 'yes',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  target  => '/data/web_static/releases/test',
 } ->
 
 exec { 'chown -R ubuntu:ubuntu /data/':

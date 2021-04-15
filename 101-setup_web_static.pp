@@ -9,6 +9,11 @@ package { 'nginx':
     name    => 'nginx',
     require => Exec['update'],
 }
+service { 'nginx':
+  ensure     => running,
+  hasrestart => true,
+  require    => Package['nginx'],
+}
 
 file { '/data/':
     ensure  => 'directory',
@@ -68,8 +73,8 @@ file_line { 'redirect_me':
   notify  => Service['nginx'],
 }
 
-service { 'nginx':
-  ensure     => running,
-  hasrestart => true,
-  require    => Package['nginx'],
+exec { 'ufw':
+  command => "ufw allow 'Nginx HTTP'",
+  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  require => Package['nginx'],
 }

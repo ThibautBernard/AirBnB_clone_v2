@@ -3,7 +3,7 @@
     deploy static
 """
 import time
-from fabric.context_managers import cd
+# from fabric.context_managers import cd
 from fabric.api import local
 from fabric.api import get
 from fabric.api import put

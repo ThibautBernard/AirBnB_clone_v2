@@ -20,7 +20,7 @@ def do_pack():
             l = local("mkdir -p versions")
         n = "web_static_{}.tgz".\
             format(time.strftime("%Y%m%d%H%M%S", time.gmtime()))
-        o = local("tar -cvzf {} versions/web_static".format(n))
+        o = local("tar -cvzf {} web_static".format(n))
         # x = local("mv {} versions".format(n))
         # p = local("pwd {}".format(n))
         return 'versions/{}'.format(n)

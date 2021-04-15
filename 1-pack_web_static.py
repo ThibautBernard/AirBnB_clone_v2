@@ -17,8 +17,8 @@ def do_pack():
         n = "web_static_{}.tgz".\
           format(time.strftime("%Y%m%d%H%M%S", time.gmtime()))
         l = local("mkdir -p versions")
-        o = local("tar -cvzf {} web_static".format(n))
-        x = local("mv {} versions".format(n))
+        o = local("tar -cvzf {} versions/web_static".format(n))
+        # x = local("mv {} versions".format(n))
         # p = local("pwd {}".format(n))
         return 'versions/{}'.format(n)
     except:

@@ -65,6 +65,7 @@ file_line { 'redirect_me':
   after   => 'root /var/www/html;',
   line    => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
   require => Package['nginx'],
+  notify  => Service['nginx'],
 }
 
 service { 'nginx':

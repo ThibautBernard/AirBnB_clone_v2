@@ -18,11 +18,12 @@ def do_pack():
     try:
         if not os.path.exists('versions'):
             l = local("mkdir -p versions")
-        n = "web_static_{}.tgz".\
+        n = "versions/web_static_{}.tgz".\
             format(time.strftime("%Y%m%d%H%M%S", time.gmtime()))
         o = local("tar -cvzf {} web_static".format(n))
         # x = local("mv {} versions".format(n))
         # p = local("pwd {}".format(n))
-        return 'versions/{}'.format(n)
+        # return 'versions/{}'.format(n)
+        return n
     except:
         return None

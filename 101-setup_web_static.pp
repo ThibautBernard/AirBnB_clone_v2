@@ -78,10 +78,9 @@ exec { 'chown -R ubuntu:ubuntu /data/':
 } ->
 
 file_line { 'redirect_me':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'root /var/www/html;',
-  line   => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
+  path  => '/etc/nginx/sites-available/default',
+  after => 'root /var/www/html;',
+  line  => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
 } ->
 
 exec { 'nginx restart':

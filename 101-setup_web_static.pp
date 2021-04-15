@@ -27,24 +27,34 @@ package { 'nginx':
   provider => 'apt'
 } ->
 
-file { '/data':
-  ensure  => 'directory'
+file { '/data/':
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 } ->
 
-file { '/data/web_static':
-  ensure => 'directory'
+file { '/data/web_static/':
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 } ->
 
-file { '/data/web_static/releases':
-  ensure => 'directory'
+file { '/data/web_static/releases/':
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 } ->
 
-file { '/data/web_static/releases/test':
-  ensure => 'directory'
+file { '/data/web_static/shared/':
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 } ->
 
-file { '/data/web_static/shared':
-  ensure => 'directory'
+file { '/data/web_static/releases/test/':
+    ensure => 'directory',
+    group  => 'ubuntu',
+    owner  => 'ubuntu',
 } ->
 
 file { '/data/web_static/releases/test/index.html':

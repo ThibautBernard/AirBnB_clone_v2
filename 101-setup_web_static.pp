@@ -12,43 +12,43 @@ package { 'nginx':
 
 file { '/data/':
     ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
+    group   => 'root',
+    owner   => 'root',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/':
     ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
+    group   => 'root',
+    owner   => 'root',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/':
     ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
+    group   => 'root',
+    owner   => 'root',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/shared/':
     ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
+    group   => 'root',
+    owner   => 'root',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/test/':
     ensure  => 'directory',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
+    group   => 'root',
+    owner   => 'root',
     require => Package['nginx'],
 }
 
 file { '/data/web_static/releases/test/index.html':
     ensure  => 'file',
-    group   => 'ubuntu',
-    owner   => 'ubuntu',
+    group   => 'root',
+    owner   => 'root',
     content => 'test wowww',
     require => File['/data/web_static/releases/test/'],
 }

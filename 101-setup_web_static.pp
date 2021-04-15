@@ -69,5 +69,6 @@ file_line { 'redirect_me':
 
 service { 'nginx':
   ensure  => running,
+  hasrestart => true,
   require => Package['nginx'],
 }

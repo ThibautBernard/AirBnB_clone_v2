@@ -62,13 +62,11 @@ file { '/data/web_static/releases/test/index.html':
     group   => 'ubuntu',
     owner   => 'ubuntu',
     content => 'test wowww',
-    require => File['/data/web_static/releases/test/'],
 }
 
 exec { 'symbolic link':
     command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
     provider => 'shell',
-    require  => File['/data/web_static/releases/test/'],
 }
 
 file_line { 'redirect_me':

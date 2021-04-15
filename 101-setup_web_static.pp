@@ -62,9 +62,9 @@ file { '/data/web_static/releases/test/index.html':
   content => "Holberton School Puppet\n"
 } ->
 
-exec { 'symbolic link':
-    command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
-    provider => 'shell',
+file { '/data/web_static/current':
+  ensure => 'link',
+  target => '/data/web_static/releases/test'
 } ->
 
 exec { 'chown -R ubuntu:ubuntu /data/':

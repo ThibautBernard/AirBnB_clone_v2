@@ -11,8 +11,8 @@
 #} ->
 
 package { 'nginx':
-    ensure => 'installed',
-    name   => 'nginx',
+  ensure   => 'present',
+  provider => 'apt'
 } ->
 
 file { '/data':
@@ -43,15 +43,13 @@ file { '/data/web_static/releases/test/index.html':
 exec { 'symbolic link':
     command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
     provider => 'shell',
-    require  => File['/data/web_static/releases/test/'],
 } ->
 
 file_line { 'redirect_me':
-  ensure  => 'present',
-  path    => '/etc/nginx/sites-available/default',
-  after   => 'root /var/www/html;',
-  line    => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
-  require => Package['nginx'],
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'root /var/www/html;',
+  line   => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
 } ->
 
 exec { 'chown -R ubuntu:ubuntu /data/':

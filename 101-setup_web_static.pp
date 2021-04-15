@@ -63,7 +63,7 @@ file_line { 'redirect_me':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'root /var/www/html;',
-  line    => '\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\t}\n',
+  line    => "\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\t}\n",
   require => Package['nginx'],
 }
 

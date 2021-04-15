@@ -77,10 +77,10 @@ exec { 'chown -R ubuntu:ubuntu /data/':
   path => '/usr/bin/:/usr/local/bin/:/bin/'
 } ->
 
-file_line { 'redirect_me':
-  path  => '/etc/nginx/sites-available/default',
-  after => 'root /var/www/html;',
-  line  => "\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/ ;\n\t}\n",
+exec { 'sed':
+  command => "sed -i \
+  '/^\tlisten 80 default_server;$/i location /hbnb_static/ { alias /data/web_static/current/; }' /etc/nginx/sites-available/default",
+  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
 } ->
 
 exec { 'nginx restart':

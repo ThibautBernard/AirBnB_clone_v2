@@ -14,8 +14,8 @@
 .container .places .art_text article .price_and_name{
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: flex-end;
+    align-items: center;
     /**margin-left: 60%;**/
     width: 100%;
 }
@@ -34,8 +34,10 @@
     font-size: 30px;
     padding: 1%;
     /**margin-left: 11%;**/
-    margin-top: -2%;
-
+    margin-top: -5%;
+    /** last modif : **/
+    
+    
 }
 .container .places .art_text article h2{
     

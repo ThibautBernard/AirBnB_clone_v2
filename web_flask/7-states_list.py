@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+"""
+    route
+"""
+from flask import Flask
+from flask import render_template
+from models import storage
+from models.state import State
+app = Flask(__name__)
+
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    """after each request"""
+    storage.close()
+
+
+@app.route('/states_list', strict_slashes=False)
+def get_all_states_route():
+    """ get all states and give to the template"""
+    states = storage.all(State)
+    return render_template('7-states_list.html', states=states)
+
+app.run(host='0.0.0.0', port=5000)

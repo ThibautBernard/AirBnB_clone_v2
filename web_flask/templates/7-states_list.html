@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+        {% for key, v_state in states.items()|sort %}
+                <LI>{{ v_state.id|e }}: <B>{{ v_state.name}}</B></LI>
+        {% endfor %}
+    </BODY>
+</HTML>

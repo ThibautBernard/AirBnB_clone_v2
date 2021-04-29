@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>AirBnB clone</title>
-
-		<link rel="shortcut icon" href="static/styles/icon.ico" >
+    <head>
+        <title>AirBnB Clone</title>
+		<link rel="shortcut icon" href="static/images/icon.ico" >
 		<link rel="stylesheet" type="text/css" href="static/styles/4-common.css"/>
 		<link rel="stylesheet" type="text/css" href="static/styles/3-header.css"/>
 		<link rel="stylesheet" type="text/css" href="static/styles/3-footer.css"/>
 		<link rel="stylesheet" type="text/css" href="static/styles/6-filters.css"/>
-	</head>
+    </head>
     <body>
-		<header>
-			<div id="header_logo"></div>
-		</header>
-		<div class="container">
-			<section class="filters">
-				<button>Search</button>
-				<div class="locations">
-					<h3>States</h3>
-					<h4>&nbsp;</h4>
-					<ul class="popover">
+        <header>
+            
+        </header>
+        <div class="container">
+            <section class="filters">     
+                    <div class="locations">
+                        <div class="locationpres">
+                            <h3>States</h3>
+                            <h4>&nbsp;</h4>
+                        </div>
+                        <ul class="popover">
                         {% for k, v_state in states.items()|sort %}
 						<li><h2>{{ v_state.name }}</h2>
 							<ul>
@@ -28,22 +28,26 @@
                                 {% endfor %}
 							</ul></li>
                         {% endfor %}
-					</ul>
-				</div>
-				<div class="amenities">
-					<h3>Amenities</h3>
-					<h4>&nbsp;</h4>
-					<ul class="popover">
-                        {% for k, v_amenities in amenities.items()|sort %}
-						    <li><h4>{{ v_amenities.name }}</h4></li>
-                        {% endfor %}
-					</ul>
-				</div>
-
-			</section>
-		</div>
-		<footer>
-			<p>Holberton School</p>
-		</footer>
-	</body>
+                        </ul>
+                    </div>
+                    <div class="amenities">
+                        <div class="amenitiespre">
+                            <h3>Amenities</h3>
+                            <h4>&nbsp;</h4>
+                        </div>
+                        <ul class="popover">
+                            {% for k, v_amenities in amenities.items()|sort %}
+						        <li><h4>{{ v_amenities.name }}</h4></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <button>Search</button>
+            </section>
+            
+        </div>
+        <footer>
+            <p>Holberton School</p>
+        </footer>
+    </body>
 </html>
+

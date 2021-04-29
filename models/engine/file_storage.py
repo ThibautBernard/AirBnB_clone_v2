@@ -39,6 +39,10 @@ class FileStorage:
             if FileStorage.__objects.get(key, "not found") != "not found":
                 del FileStorage.__objects[key]
 
+    def close(self):
+        """ deserializing the JSON file to objects """
+        self.reload()
+
     def reload(self):
         """Loads storage dictionary from file"""
         from models.base_model import BaseModel

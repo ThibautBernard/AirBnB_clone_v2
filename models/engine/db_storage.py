@@ -85,6 +85,13 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
 
+    def close(self):
+        """ Release any connection/transactional
+            resources owned by the Session first,
+            then discarding the Session itself.
+        """
+        self.__session.close()
+
     def reload(self):
         """
             Reload/create tables from class mapped

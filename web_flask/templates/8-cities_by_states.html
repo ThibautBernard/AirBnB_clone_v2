@@ -6,7 +6,6 @@
     <BODY>
         <H1>States</H1>
         <UL> 
-            {% if states %}
             {% for key, v_state in states.items()|sort %}
                 <LI>{{v_state.id|e}}: <B>{{v_state.name}}</B></LI>
                     <UL>
@@ -15,7 +14,6 @@
                         {% endfor %}
                     </UL>
             {% endfor %}
-            {% endif %}
         </UL>
     </BODY>
 </HTML>

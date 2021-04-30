@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    routes
+    routes for the project
 """
 from flask import Flask
 from flask import render_template

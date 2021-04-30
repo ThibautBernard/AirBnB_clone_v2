@@ -16,21 +16,10 @@ def teardown_db(exception):
     storage.close()
 
 
-@app.route('/cities_by_states', strict_slashes=False)
-def cities_by_states_route():
-    """ get all cities by states and give to the template"""
-    if "HBNB_TYPE_STORAGE" in os.environ \
-       and os.environ['HBNB_TYPE_STORAGE'] != "db":
-        states = storage.all(State)
-        return render_template('8-cities_by_states.html', states=states)
-    states = storage.all(State)
-    return render_template('8-cities_by_states.html', states=states)
-
-
 @app.route('/states', strict_slashes=False)
 def get_all_states_route():
     """ get all states and give to the template"""
-    states = storage.all(State)
+    states = storage.all(State).values()
     return render_template('9-states.html', states=states)
 
 

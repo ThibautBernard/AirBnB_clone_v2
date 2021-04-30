@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    route
+    routes for the project
 """
 from flask import Flask
 from flask import render_template
@@ -21,4 +21,5 @@ def get_all_states_route():
     states = storage.all(State)
     return render_template('7-states_list.html', states=states)
 
-app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

@@ -4,8 +4,11 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        {% for key, v_state in states.items()|sort %}
-                <LI>{{ v_state.id|e }}: <B>{{ v_state.name}}</B></LI>
-        {% endfor %}
+        <H1>States</H1>
+        <UL>
+            {% for key, v_state in states.items()|sort %}
+                <LI>{{v_state.id|e}}: <B>{{v_state.name}}</B></LI>
+            {% endfor %}
+        </UL>
     </BODY>
 </HTML>

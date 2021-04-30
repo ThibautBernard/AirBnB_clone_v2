@@ -7,10 +7,10 @@
         <H1>States</H1>
         <UL> 
             {% for key, v_state in states.items()|sort %}
-                <LI>{{ v_state.id|e }}: <B>{{ v_state.name}}</B></LI>
+                <LI>{{v_state.id|e}}: <B>{{v_state.name}}</B></LI>
                 <UL>
                     {% for city in v_state.cities %}
-                        <LI>{{ city.id }}: <B>{{ city.name}}</B></LI>
+                        <LI>{{city.id}}: <B>{{city.name}}</B></LI>
                     {% endfor %}
                 </UL>
             {% endfor %}

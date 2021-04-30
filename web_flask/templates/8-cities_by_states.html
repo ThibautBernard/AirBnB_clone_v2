@@ -6,10 +6,10 @@
     <BODY>
         <H1>States</H1>
         <UL> 
-            {% for key, v_state in states.items()|sort %}
-                <LI>{{v_state.id|e}}: <B>{{v_state.name}}</B></LI>
+            {% for state in states|sort(attribute='name') %}
+                <LI>{{state.id|e}}: <B>{{state.name|e}}</B></LI>
                     <UL>
-                        {% for city in v_state.cities %}
+                        {% for city in state.cities|sort(attribute='name') %}
                             <LI>{{city.id}}: <B>{{city.name}}</B></LI>
                         {% endfor %}
                     </UL>

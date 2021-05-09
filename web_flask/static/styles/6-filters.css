@@ -10,6 +10,12 @@ button{
     max-height: 300px;
     overflow: scroll;
 }
+.popover ul{
+    padding-left: 5%;
+}
+ul{
+    list-style: none;
+}
  .filters .locations:hover ul.popover{
     
     background-color: #FAFAFA;

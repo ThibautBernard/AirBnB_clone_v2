@@ -34,7 +34,9 @@
     font-size: 30px;
     padding: 1%;
     /**margin-left: 11%;**/
-    margin-top: -5%;
+    margin-top: -2%;
+    margin-left: auto;
+    align-self: stretch;
     /** last modif : **/
     
     
@@ -43,8 +45,8 @@
     
     font-size: 30px;
     margin-top: 0;
-    text-align: center;
-    margin-right: 15%;
+    /** text-align: center; **/
+    /** margin-right: 15%; **/
 }
 .container .places .art_text article .price_and_name .price_by_night p{
     margin: 0px;
